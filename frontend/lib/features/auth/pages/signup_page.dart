@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/features/auth/pages/login_page.dart';
 
-class LoginPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   static route()=>MaterialPageRoute(
     builder: (context) => const LoginPage(),
   );
-  const LoginPage({super.key});
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<SignUpPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
@@ -34,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   }
   //in init we first init the flutter related items and then we init the controllers
 
-  void LoginUser() {
+  void SignUpUser() {
     if (formKey.currentState!.validate()) {
       //store the user data and call the nodejs and express stuff
       //if the form is valid then we can proceed with the Login process
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                 }),
             const SizedBox(height: 15),
             ElevatedButton(
-              onPressed: LoginUser,
+              onPressed: SignUpUser,
               child: Text(
                 'Sign Up',
                 style: TextStyle(

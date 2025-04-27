@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/features/auth/pages/Login_page.dart';
+
+import 'package:task_manager/features/auth/pages/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   static route()=>MaterialPageRoute(
-    builder: (context) => const SignupPage(),
+    builder: (context) => const SignUpPage(),
   );
   const LoginPage({super.key});
 
@@ -108,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                 // Navigate to the signup page
                 // Navigator.pushNamed(context, '/signup');
                 // Navigator.push(context, SignupPage.route());
-                Navigator.of(context).push(SignupPage.route());//if i want to go to sign up pg from any other pg i just have to do this
+                Navigator.of(context).push(SignUpPage.route());//if i want to go to sign up pg from any other pg i just have to do this
                 //instead of material page route and all that stuff
               },
               child: RichText(
