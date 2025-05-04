@@ -1,0 +1,33 @@
+services:
+  backend:
+    container_name: taskmgr-backend #this is the name of the container we are going to use for the backend
+    build: #we want to build something, first specify the context of the build
+      #the context is the directory where the Dockerfile is located
+      context: ./ #this current directory is the context we are building in(current working directory)
+    ports: #specify the ports we want to expose and we will be running the container on
+      #pass the port u specified while building the docker image
+        - "8000:8000" #key: value format, the key is the port on the host machine and the value is the port on the container
+    environment: #env is going to be a key value format 
+      # if u have .env files in your sysytem u will also have to specify them here in docker compose
+        - PORT =8000
+        - DATABASE_URL=postgresql://postgres:test123@db:5432/mydb
+     #5432 is the port on which postgresql is running on the container
+     #8000 is the port on which the backend is running on the container
+      #test123 is the password for the postgres user
+      #mydb is the name of the database we are going to create in postgresql
+      #db is the name of the service we are going to create in docker compose
+      #postgres is the username
+    depends_on:  #this is going to make sure that the backend service is started after the db service is started
+        - db 
+  db: #describe the service of db
+    image: postgres:15 #this is the image we are going to use for the database
+    container_name: db #this is the name of the container we are going to use for the database
+      
+    environment:
+      POSTGRES_USER: postgres #this is the username for the database
+      POSTGRES_PASSWORD: test123 #this is the password for the database
+      POSTGRES_DB: mydb #this is the name of the database we are going to create in postgresql
+    ports:
+        - "5432:5432" #from our local system to what should be mapped on the container's system
+    restart: always #this is going to restart the container if it stops(auto restart if there's any failure)
+      
