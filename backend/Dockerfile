@@ -30,3 +30,8 @@ EXPOSE 8000
 CMD ["npm", "run", "dev"]
 #CMD command is used to specify the command that will be run when the container is started
 #in this case, we are running npm run dev to start the backend express server in development mode
+
+
+
+#these all commands have seprate layers of their own
+#so when we run the docker build command, it will create a new image with all these layers

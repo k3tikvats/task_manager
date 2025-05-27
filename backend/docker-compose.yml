@@ -9,18 +9,26 @@ services:
         - "8000:8000" #key: value format, the key is the port on the host machine and the value is the port on the container
     environment: #env is going to be a key value format 
       # if u have .env files in your sysytem u will also have to specify them here in docker compose
-        - PORT =8000
+        - PORT=8000
         - DATABASE_URL=postgresql://postgres:test123@db:5432/mydb
+        #DATABASE_URL=postgresql://<username>:<password>@<host>:<port>/<database>
      #5432 is the port on which postgresql is running on the container
-     #8000 is the port on which the backend is running on the container
+     #8000 is the port on which the backend(nodejs) is running on the container
       #test123 is the password for the postgres user
       #mydb is the name of the database we are going to create in postgresql
       #db is the name of the service we are going to create in docker compose
       #postgres is the username
     depends_on:  #this is going to make sure that the backend service is started after the db service is started
         - db 
+    #this is going to make sure that the backend service is started after the db service is started
+    volumes: #this is going to mount the current directory to the container
+      - ./:/app #this is going to mount the current directory to the /app directory in the container
+      #the first part is the path on the host machine and the second part is the path on the container
+      #this is going to make sure that any changes made in the current directory are reflected in the container
+      #and any changes made in the container are reflected in the current directory0
+      - /app/node_modules #this is going to make sure that the node_modules directory is not mounted to the container
   db: #describe the service of db
-    image: postgres:15 #this is the image we are going to use for the database
+    image: postgres:15 #this is the image we are going to use for the database(pulling)
     container_name: db #this is the name of the container we are going to use for the database
       
     environment:
@@ -29,5 +37,6 @@ services:
       POSTGRES_DB: mydb #this is the name of the database we are going to create in postgresql
     ports:
         - "5432:5432" #from our local system to what should be mapped on the container's system
+        #-local system port:container port
     restart: always #this is going to restart the container if it stops(auto restart if there's any failure)
       
